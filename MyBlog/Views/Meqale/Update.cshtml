@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "Update";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+@model CustomProject.Entity.Meqale
+
+
+<div class="container">
+    <div class="card card-register mx-auto mt-5">
+        <div class="card-header">Məqaləye duzelis edin</div>
+        <div class="card-body">
+            <form method="post" action="/Meqale/Update2">
+                <input type="hidden" name="Id" value="@Model.Id" />
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-label-group">
+                                <input name="Basliq" value="@Model.Basliq" type="text" id="adi" class="form-control" placeholder="Məhsul Adi" required="required" autofocus="autofocus">
+                                <label for="adi">Məqalə adı</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-label-group">
+                                <input name="Aciqlama" value="@Model.Aciqlama" type="text" id="aciqlama" class="form-control" placeholder="Meqalenin Aciqlamasi" required="required" autofocus="autofocus">
+                                <label for="aciqlama">Meqalenin aciqlamasi</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br /><br />
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-label-group">
+                                <p class="form-control"><b>Meqalenin metni</b></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-label-group">
+                                <textarea name="Metn" id="text" class="form-control" placeholder="Meqale text" required="required" autofocus="autofocus" rows="10" cols="50" style="font-size:x-large">@Model.Metn</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-label-group">
+                                <input class="form-control btn btn-primary btn-block" type="submit" value="Duzelis edin" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="text-center">
+                <a class="d-block small mt-3" href="/Meqale/Index">Geri qayıt</a>
+                <a class="d-block small" href="/Admin/Index">Ana səhifə</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "UserRol";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+@model MembershipUserCollection
+
+<form action="/MainAdmin/UserRol" method="post">
+
+    @{
+        foreach (MembershipUser item in Model)
+        {
+            <h2> @item.UserName.ToString() istifadecisine rol ver</h2>
+            <input type="hidden" value="@item.UserName.ToString()" name="Adi" />
+        }
+    }
+    <br /> <br />
+    <select name="UserRol">
+        @{
+            foreach (string item in ViewBag.Rollar)
+            {
+                <option value="@item.ToString()">
+                    @item.ToString()
+                </option>
+            }
+        }
+    </select>
+    <br />
+    <br />
+    <input type="submit" value="Rolu Ver" />
+</form>
+

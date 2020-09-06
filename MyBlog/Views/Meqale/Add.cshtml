@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+@model IEnumerable<CustomProject.Entity.Kategoriya>
+
+
+<div class="container">
+    <div class="card card-register mx-auto mt-5">
+        <div class="card-header">Məqalə Əlavə Et</div>
+        <div class="card-body">
+            <form method="post" action="/Meqale/Add2">
+                @{ 
+                    Guid ggg = CustomProject.ORM.UserORM.Current.GetUserByName(User.Identity.Name);
+                }
+                <input type="hidden" name="UserID" value="@ggg" />
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-label-group">
+                                <input name="Basliq" type="text" id="adi" class="form-control" placeholder="Məhsul Adi" required="required" autofocus="autofocus">
+                                <label for="adi">Məqalə adı</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-3">
+                            <div class="form-label-group">
+                                <span style="text-align:center; font-size:large"> Kateqoriya sechin: </span>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-label-group">
+                                <select id="kat" class="form-control" name="KategoriyaID">
+
+                                    @{
+                                        foreach (CustomProject.Entity.Kategoriya item in Model)
+                                        {
+                                            <option value="@item.Id">@item.Adi</option>
+                                        }
+                                    }
+
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-label-group">
+                                <input name="Aciqlama" type="text" id="aciqlama" class="form-control" placeholder="Meqalenin Aciqlamasi" required="required" autofocus="autofocus">
+                                <label for="aciqlama">Meqalenin aciqlamasi</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-label-group">
+                                <textarea name="Metn" id="text" class="form-control" placeholder="Meqale text" required="required" autofocus="autofocus" rows="10" cols="50" style="font-size:x-large"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-label-group">
+                                <input class="form-control btn btn-primary btn-block" type="submit" value="Elave Et" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="text-center">
+                <a class="d-block small mt-3" href="/Meqale/Index">Geri qayıt</a>
+                <a class="d-block small" href="/Admin/Index">Ana səhifə</a>
+            </div>
+        </div>
+    </div>
+</div>

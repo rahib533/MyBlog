@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Tag";
+    Layout = "~/Views/Shared/User_Layout.cshtml";
+}
+
+
+
+@using CustomProject.Entity
+@using CustomProject.ORM
+@model IEnumerable<Meqale>
+
+@section meqale{
+    <h3 class="section-title"> @ViewBag.Tag tagina uygun olan meqalelerimiz</h3>
+    <div class="latest-blog-wrapper col-sm-8">
+        <div class="latest-blog isotope isotope js-isotope row" data-isotope-options='{ "layoutMode": "fitRows", "itemSelector": ".post" }'>
+            @{
+                foreach (var item in Model)
+                {
+                    <div class="post col-sm-12 col-md-6">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <figure>
+                                    <a href="/Home/Meqale/@item.Id">
+                                        <div class="text-overlay">
+                                            <div class="info"><span>Daha cox oxu</span></div>
+                                        </div>
+                                        @{
+                                            if (PhotoForMeqaleORM.Current.SelectForeignById(item.Id).Data.Count != 0)
+                                            {
+                                                <img src="@PhotoForMeqaleORM.Current.SelectForeignById(item.Id).Data[0].OrtaYol" alt="" />
+                                            }
+                                            else
+                                            {
+                                                <img src="#" alt="" />
+                                            }
+                                        }
+
+                                    </a>
+                                </figure>
+                            </div>
+                            <div class="col-sm-8 post-content">
+                                <div class="meta"><span class="date">@item.Tarixi</span><span class="comments"><a >@ReyORM.Current.SelectForeignById(item.Id).Data.Count <i class="icon-chat-1"></i></a></span></div>
+                                <h3 class="post-title"><a href="/Home/Meqale/@item.Id">@item.Basliq</a></h3>
+                                <p>@item.Aciqlama</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+                }
+            }
+
+
+        </div>
+        
+    </div>
+}
+
+
+

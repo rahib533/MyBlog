@@ -1,0 +1,106 @@
+﻿
+@{
+    ViewBag.Title = "Gor";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+
+@model IEnumerable<CustomProject.Entity.Rey>
+
+
+
+@{
+    foreach (var item in Model)
+    {
+        <div class="container">
+            <div class="card card-register mx-auto mt-5">
+                <div class="card-body">
+                    <form method="post" action="#">
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <div class="form-label-group">
+                                        <input readonly name="Basliq" type="text" id="adi" class="form-control" value="@CustomProject.ORM.UserORM.Current.GetUserById(item.UserID)" required="required" autofocus="autofocus">
+                                        <label for="adi">User adı</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <div class="form-label-group">
+                                        <input name="Tarixi" type="text" id="tarix" class="form-control" readonly required="required" value="@item.Tarixi" autofocus="autofocus">
+                                        <label for="adi">Tarixi</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <div class="form-label-group">
+                                        <input name="Text" type="text" id="txt" class="form-control" readonly required="required" value="@item.Text" autofocus="autofocus">
+                                        <label for="adi">Text</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-12">
+                                    <div class="form-label-group">
+                                        <a href="#" class="form-control btn btn-danger btn-block reySil" data-id="@item.Id">SIL</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </form>
+                    <div class="text-center">
+                        <a class="d-block small mt-3" href="/Rey/Index">Geri qayıt</a>
+                        <a class="d-block small" href="/Admin/Index">Ana səhifə</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+@section footer{
+
+    <script src="~/Content/Admin/js/sb-admin.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $(".reySil").click(function () {
+                var deyer = $(this).data("id");
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Rey/Sil/",
+                    data: {reyId: deyer},
+
+                    success: function my(gelen) {
+                        alert("Rey Silindi");
+                        $("body").empty();
+                        $("body").html(gelen);
+                    },
+                    error: function my() {
+                        alert("xeta oldu");
+                    }
+
+                });
+            });
+        });
+
+    </script>
+
+
+}
+

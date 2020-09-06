@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewBag.Title = "Meqale";
+    Layout = "~/Views/Shared/User_Layout.cshtml";
+}
+
+@using CustomProject.Entity
+@using CustomProject.ORM
+
+@model Meqale
+
+@section meqale{
+    <div class="col-sm-8 content">
+        <div class="post-content">
+            <div class="meta"><span class="comments"><a href="#comments">@ReyORM.Current.SelectForeignById(Model.Id).Data.Count <i class="icon-chat-1"></i></a></span></div>
+            <h3 style="word-break:break-all;">@Model.Basliq</h3>
+            <p style="word-break:break-all;">@Model.Aciqlama</p>
+            <div class="slider-pro blog-slider">
+                <div class="sp-slides">
+                    @{
+                        foreach (var item in PhotoForMeqaleORM.Current.SelectForeignById(Model.Id).Data)
+                        {
+                            <div class="sp-slide">
+                                <img class="sp-image" src="@item.BoyukYol"
+                                     data-src="@item.BoyukYol" alt="" />
+                            </div>
+                        }
+                    }
+
+
+                </div>
+            </div>
+            <p style="word-break:break-all;">
+                @Model.Metn
+            </p>
+            <div class="meta tags">
+                @{
+                    foreach (var item in MeqaleTagForMeqaleORM.Current.SelectForeignByIdCom(Model.Id).Data)
+                    {
+                        <a href="/Home/Tag/@item.TagID">@TagORM.Current.SelectById(item.TagID).Data[0].Adi &nbsp;</a>
+                    }
+                }
+
+            </div>
+            <div class="click-share">
+                <ul>
+                    @{
+                        if (LikeForMeqaleORM.Current.Select().Data.FirstOrDefault(x => x.MeqaleID == Model.Id && x.UserID == UserORM.Current.GetUserByName(User.Identity.Name)) == null)
+                        {
+                            <li><a class="btn share-facebook beyen" data-meqale="@Model.Id" data-user="@UserORM.Current.GetUserByName(User.Identity.Name)" >Beyen &nbsp; &nbsp;@LikeForMeqaleORM.Current.SelectForeignByIdCom(Model.Id).Data.Count</a></li>
+                        }
+                        else
+                        {
+                            <li><a class="btn share-pinterest beyen" data-meqale="@Model.Id" data-user="@UserORM.Current.GetUserByName(User.Identity.Name)" >Beyendin &nbsp; &nbsp;@LikeForMeqaleORM.Current.SelectForeignByIdCom(Model.Id).Data.Count</a></li>
+                        }
+                    }
+
+                </ul>
+            </div>
+            <br />
+            <div id="comments" class="rey">
+                <br />
+                <h3>@ReyORM.Current.SelectForeignById(Model.Id).Data.Count Rey</h3>
+                <br />
+                <ol id="singlecomments" class="commentlist">
+
+                    @{
+                        foreach (var item in ReyORM.Current.SelectForeignById(Model.Id).Data)
+                        {
+
+                                        <li>
+                                            @{
+                                                if (User.Identity.Name == "rahib")
+                                                {
+                                                    <div class="meta"><a class="btn btn-info btn-lg reySil" data-id="@item.Id">sil</a></div>
+                                                }
+                                            }
+
+                                            <div class="comment-wrapper">
+                                                <div class="message">
+                                                    <div class="arrow-box">
+                                                        <div class="info">
+                                                            <h2>@item.UserName</h2>
+                                                            <div class="meta"> <span class="date">@item.Tarixi</span> </div>
+                                                        </div>
+                                                        <p style="word-break:break-all;">@item.Text</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </li>
+                        }
+                    }
+                </ol>
+            </div>
+            <br />
+            <div class="comment-form-wrapper">
+                <h3>Fikirlerinizi bizimle bolusmek istiyerdiniz?</h3>
+
+                <form class="comment-form" action="/Home/Rey" method="post">
+                    <input name="MeqaleID" type="hidden" value="@Model.Id" />
+                    <input name="UserID" type="hidden" value="@UserORM.Current.GetUserByName(User.Identity.Name)" />
+                    <div class="message-field">
+                        <textarea name="Text" id="textarea" rows="5" cols="30" title="Reyinizi buraya elave edin..."></textarea>
+                    </div>
+                    <input type="submit" value="Elave ET" name="submit" class="btn btn-submit do" />
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+}
+
+@section footer{
+
+    <script src="~/Content/Admin/js/sb-admin.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $(".reySil").click(function () {
+                var deyer = $(this).data("id");
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "/Home/ReySil/" + deyer,
+
+                    success: function my(gelen) {
+                        $("body").empty();
+                        $("body").html(gelen);
+                        alert("Rey Silindi");
+                        
+                    },
+                    error: function my() {
+                        alert("xeta oldu");
+                    }
+
+                });
+            });
+
+            $(".beyen").click(function () {
+                var user = $(this).data("user");
+                var meqale = $(this).data("meqale");
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Home/Beyenmek",
+                    data: { meqaleId: meqale, userId: user },
+                    success: function (gelen) {
+                        $("body").empty();
+                        $("body").html(gelen);
+                       
+                    },
+                    error: function () {
+                        alert("xeta oldu");
+                    }
+                });
+            });
+        });
+
+    </script>
+
+
+}
+
