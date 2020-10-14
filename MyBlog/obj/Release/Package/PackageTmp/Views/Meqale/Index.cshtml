@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+
+@{
+    Html.RenderAction("IndexPW", "Meqale");
+}
+
+
+
+@section footer{
+
+    <script src="~/Content/Admin/js/sb-admin.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $(".meqaleSil").click(function () {
+                var deyer = $(this).data("meqale");
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "/Meqale/Sil/" + deyer,
+
+                    success: function my(gelen) {
+                        alert("Meqale Silindi");
+                        $("body").empty();
+                        $("body").html(gelen);
+                    },
+                    error: function my() {
+                        alert("xeta oldu");
+                    }
+
+                });
+            });
+        });
+
+    </script>
+
+
+}
+

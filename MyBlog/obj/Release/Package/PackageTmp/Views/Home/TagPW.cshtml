@@ -1,0 +1,20 @@
+﻿
+@using CustomProject.Entity
+@using CustomProject.ORM
+
+@model IEnumerable<Tag>
+
+
+    <div class="sidebox widget">
+        <h3 class="widget-title section-title">Taglar</h3>
+        <ul class="tag-list">
+            @{
+                foreach (var item in Model)
+                {
+                    <li><a href="/Home/Tag/@item.Id">@item.Adi</a></li>
+                }
+            }
+
+        </ul>
+        
+    </div>

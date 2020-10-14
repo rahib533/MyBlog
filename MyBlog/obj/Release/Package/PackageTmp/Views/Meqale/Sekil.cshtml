@@ -1,0 +1,88 @@
+﻿
+@{
+    ViewBag.Title = "Sekil";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+@model IEnumerable<CustomProject.Entity.PhotosForMeqale>
+
+@{
+    int a = (int)ViewBag.Meqale;
+}
+<h2>@CustomProject.ORM.MeqaleORM.Current.SelectById(a).Data[0].Basliq Meqalesinin Sekilleri </h2>
+
+
+
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+
+            <th>Sekili gor</th>
+            <th>SIL</th>
+        </tr>
+    </thead>
+    <tfoot>
+        <tr>
+
+            <th>Sekili gor</th>
+            <th>SIL</th>
+        </tr>
+    </tfoot>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+
+                <td><a href="@item.BoyukYol" class="btn btn-success sekil">Sekili gor</a></td>
+                <td><a href="#" class="btn btn-danger sekilSil" data-id="@item.Id">SIL</a></td>
+            </tr>
+
+        }
+    </tbody>
+</table>
+
+<script src="~/Content/jquery.fancybox.js"></script>
+
+
+<script>
+    $(function () {
+        jQuery(".sekil").fancybox();
+    });
+</script>
+
+@section footer{
+
+    <script src="~/Content/Admin/js/sb-admin.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+            $(".sekilSil").click(function () {
+                var deyer = $(this).data("id");
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/Meqale/SekilSil/",
+                    data: { photoId : deyer },
+
+                    success: function my(gelen) {
+                        alert("Sekil Silindi");
+                        $("body").empty();
+                        $("body").html(gelen);
+                    },
+                    error: function my() {
+                        alert("xeta oldu");
+                    }
+
+                });
+            });
+        });
+
+    </script>
+
+
+}
+

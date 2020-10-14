@@ -1,0 +1,112 @@
+﻿
+@model IEnumerable<CustomProject.Entity.Meqale>
+
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Index">Ana Səhifə</a>
+        </li>
+        <li class="breadcrumb-item active">Cədvəl</li>
+    </ol><br />
+    <a class="btn btn-info" href="/Meqale/Index">Sehifeni Yenile</a>
+    <br /><br />
+    <br />
+    <a class="btn btn-primary btn-block" href="/Meqale/Add">Məqalə Əlavə Et</a>
+    <br />
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Data Table Example
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Adı</th>
+                            <th>Aciqlama</th>
+                            <th>Tarixi</th>
+                            <th>Kateqoriyası</th>
+                            <th>Cari Veziyyeti</th>
+                            <th>Sekili</th>
+                            <th>Tag elave et</th>
+                            <th>SIL</th>
+                            <th>GÜNCƏLLƏ</th>
+                            <th>Shekil elave et</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Adı</th>
+                            <th>Aciqlama</th>
+                            <th>Tarixi</th>
+                            <th>Kateqoriyası</th>
+                            <th>Cari Veziyyeti</th>
+                            <th>Sekili</th>
+                            <th>Tag elave et</th>
+                            <th>SIL</th>
+                            <th>GÜNCƏLLƏ</th>
+                            <th>Shekil elave et</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Basliq</td>
+                                <td>@item.Aciqlama</td>
+                                <td>@item.Tarixi</td>
+                               
+
+                                @if (CustomProject.ORM.KategoriyaORM.Current.SelectById(item.KategoriyaID).Data[0] == null)
+                                {
+                                    <td>yoxdur</td>
+                                }
+                                else
+                                {
+                                    <td>@CustomProject.ORM.KategoriyaORM.Current.SelectById(item.KategoriyaID).Data[0].Adi</td>
+                                }
+                                @if (item.IsActive == true)
+                                {
+                                    <td class="bg-success">Active</td>
+                                }
+                                else
+                                {
+                                    <td class="btn-danger">Deactive</td>
+                                }
+
+                                @if (CustomProject.ORM.PhotoForMeqaleORM.Current.SelectForeignById(item.Id).Data.Count==0)
+                                {
+                                    <td>yoxdur</td>
+                                }
+                                else
+                                {
+                                    <td><a href="/Meqale/Sekil/@item.Id">Meqale Sekili</a></td>
+                                }
+
+                                <td><a href="/MeqaleTag/Add/@item.Id" class="btn btn-dark">Tag elave et</a></td>
+                                <td><a class="btn btn-primary btn-danger meqaleSil" data-meqale="@item.Id" href="#">Sil</a></td>
+                                <td><a id="guncelle" class="btn btn-primary btn-default" href="/Meqale/Update/@item.Id">Güncəllə</a></td>
+                                <td>
+                                    <a class="btn btn-success" href="/Meqale/PhotoAdd/@item.Id">Shekil elave et</a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>
+
+    <p class="small text-center text-muted my-5">
+        <em>More table examples coming soon...</em>
+    </p>
+
+</div>
+

@@ -1,0 +1,122 @@
+﻿
+@{
+    ViewBag.Title = "Sil";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+@model IEnumerable<CustomProject.Entity.MeqaleTagForMeqale>
+
+
+<div class="container">
+
+    <div class="card card-register mx-auto mt-5">
+        <br />
+        <div class="card-header">Məqaləden tag Sil</div>
+        <div class="card-body">
+            <form>
+                <input id="mId" type="hidden" name="MeqaleID" value="@ViewBag.Meqale" />
+                @{
+                    int a = (int)ViewBag.Meqale;
+                }
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-label-group">
+                                <input readonly type="text" value="@CustomProject.ORM.MeqaleORM.Current.SelectById(a).Data[0].Basliq" id="adi" class="form-control" placeholder="Məhsul Adi" required="required" autofocus="autofocus">
+                                <label for="adi">Məqalə adı</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @{
+                    List<CustomProject.Entity.MeqaleTagForMeqale> data = Model.ToList();
+                    if (data.Count != 0)
+                    {
+                        List<CustomProject.Entity.Meqale> mql = CustomProject.ORM.MeqaleORM.Current.SelectById(data[0].MeqaleID).Data;
+
+
+                        <div class="form-group">
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    <div class="form-label-group">
+                                        <span style="text-align:center; font-size:large"> Elave edilmis taglar: </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-label-group">
+                                        <select id="tId" name="TagID" class="form-control">
+
+                                            @{
+                                                foreach (var item in Model)
+                                                {
+                                                    <option value="@CustomProject.ORM.TagORM.Current.SelectById(item.TagID).Data[0].Id">@CustomProject.ORM.TagORM.Current.SelectById(item.TagID).Data[0].Adi</option>
+                                                }
+                                            }
+
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    }
+
+                }
+
+                <div class="form-group">
+                    <div class="form-row">
+                        <div class="col-md-12">
+                            <div class="form-label-group">
+                                <input id="sil" class="form-control btn btn-danger btn-block" type="button" value="SIL" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div class="text-center">
+                <a class="d-block small mt-3" href="/MeqaleTag/Add/@ViewBag.Meqale">Geri qayıt</a>
+                <a class="d-block small" href="/Admin/Index">Ana səhifə</a>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section footer{
+
+    <script src="~/Content/Admin/js/sb-admin.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $("#sil").click(function () {
+                var meqId = $("#mId").val();
+                var taId = $("#tId").val();
+
+                $.ajax({
+
+                    type: "POST",
+                    url: "/MeqaleTag/Sil2/",
+                    data: {MeqaleID: meqId, TagID: taId},
+
+                    success: function my(gelen) {
+                        alert("Meqaleye elave olunan tag Silindi");
+                        $("body").empty();
+                        $("body").html(gelen);
+                    },
+                    error: function my() {
+                        alert("xeta oldu");
+                    }
+
+                });
+            });
+        });
+
+    </script>
+
+
+}

@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "PhotoAdd";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+@model CustomProject.Entity.Meqale
+
+
+<form enctype="multipart/form-data" method="post" action="/Meqale/PhotosAdd">
+    <input type="hidden" value="@Model.Id" name="id" />
+    <h2>@Model.Basliq meqalesine sekil elave et</h2>
+    <br /><br />
+    <input type="file" name="fileUpload" />
+    <br /> <br />
+    <input style="margin-left:350px" type="submit" value="Kayd ele" class="btn btn-success" />
+</form>
+

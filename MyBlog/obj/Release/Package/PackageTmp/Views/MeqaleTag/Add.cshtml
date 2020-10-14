@@ -1,0 +1,115 @@
+﻿
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+
+@model IEnumerable<CustomProject.Entity.MeqaleTagForMeqale>
+
+
+    <div class="container">
+        
+        <div class="card card-register mx-auto mt-5">
+            <a href="/MeqaleTag/Sil/@ViewBag.Meqale" class="btn btn-danger btn-block">Meqaleden tag sil</a>
+            <br />
+            <div class="card-header">Məqaləye tag Əlavə Et</div>
+            <div class="card-body">
+                <form method="post" action="/MeqaleTag/Add2">
+                    <input type="hidden" name="MeqaleID" value="@ViewBag.Meqale" />
+                    @{
+                        int a = (int)ViewBag.Meqale;
+                    }
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-label-group">
+                                    <input readonly type="text" value="@CustomProject.ORM.MeqaleORM.Current.SelectById(a).Data[0].Basliq" id="adi" class="form-control" placeholder="Məhsul Adi" required="required" autofocus="autofocus">
+                                    <label for="adi">Məqalə adı</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    @{
+                        List<CustomProject.Entity.MeqaleTagForMeqale> data = Model.ToList();
+                        if (data.Count != 0)
+                        {
+                            List<CustomProject.Entity.Meqale> mql = CustomProject.ORM.MeqaleORM.Current.SelectById(data[0].MeqaleID).Data;
+
+
+                            <div class="form-group">
+                                <div class="form-row">
+                                    <div class="col-md-4">
+                                        <div class="form-label-group">
+                                            <span style="text-align:center; font-size:large"> Elave edilmis taglar: </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="form-label-group">
+                                            <select id="kat" class="form-control">
+
+                                                @{
+                                                    foreach (var item in Model)
+                                                    {
+                                                        <option>@CustomProject.ORM.TagORM.Current.SelectById(item.TagID).Data[0].Adi</option>
+                                                    }
+                                                }
+
+                                            </select>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+
+                        }
+
+                    }
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <div class="form-label-group">
+                                    <span style="text-align:center; font-size:large">Taglari elave et: </span>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="form-label-group">
+                                    <select id="kat" class="form-control" name="TagID">
+
+                                        @{
+                                            foreach (var item in CustomProject.ORM.TagORM.Current.SelectActive().Data)
+                                            {
+                                                <option value="@item.Id">@item.Adi</option>
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="form-row">
+                            <div class="col-md-12">
+                                <div class="form-label-group">
+                                    <input class="form-control btn btn-primary btn-block" type="submit" value="Elave Et" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="text-center">
+                    <a class="d-block small mt-3" href="/Meqale/Index">Geri qayıt</a>
+                    <a class="d-block small" href="/Admin/Index">Ana səhifə</a>
+                </div>
+            </div>
+        </div>
+
+
+        
+    </div>

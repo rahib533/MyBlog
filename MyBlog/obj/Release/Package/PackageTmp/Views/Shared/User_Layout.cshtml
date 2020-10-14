@@ -1,0 +1,196 @@
+﻿
+@{
+    Layout = null;
+}
+
+@using CustomProject.Entity
+@using CustomProject.ORM
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="/Content/User/style/images/favicon.png">
+    <title>My Blog</title>
+    <!-- Bootstrap core CSS -->
+    <link href="/Content/User/style/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/Content/User/style/css/plugins.css" rel="stylesheet">
+    <link href="/Content/User/style.css" rel="stylesheet">
+    <link href="/Content/User/style/css/color/red.css" rel="stylesheet">
+    <link href="/Content/User/style/type/bebas.css" rel="stylesheet">
+    <link href="/Content/User/style/type/fontello.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+          <script src="/Content/User/style/js/html5shiv.js"></script>
+          <script src="/Content/User/https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+          <![endif]-->
+    @RenderSection("header",false)
+</head>
+<body>
+    @*<div id="preloader"><div id="status"><div class="spinner"></div></div></div>*@
+    <div class="body-wrapper">
+        <div class="navbar default">
+            <div class="navbar-header">
+                <div class="container">
+                    <div class="basic-wrapper">
+                        <a class="btn responsive-menu pull-right" data-toggle="collapse" data-target=".navbar-collapse"><i></i></a>
+                        <div class="navbar-brand"><a href="/Home/Index"><img src="/Content/LogoSekil/3e5b9a13-d2db-4c09-9336-50aa10a84115.png" alt="" data-src="/Content/LogoSekil/3e5b9a13-d2db-4c09-9336-50aa10a84115.png" data-ret="style/images/logo@2x.png" class="retina" /></a></div>
+                    </div>
+                    <nav class="collapse navbar-collapse pull-right">
+                        <ul class="nav navbar-nav">
+                            @{ 
+                                if (User.Identity.Name == "rahib")
+                                {
+                                    <li><a href="/Admin/Index">Admin Panel</a></li>
+                                }
+                            }
+                            <li><a href="/Home/Index">Ana Sehife</a></li>
+                            <li class="dropdown">
+                                <a href="/Content/User/#" class="dropdown-toggle js-activated">Kategoriyalar</a>
+                                <ul class="dropdown-menu">
+                                    @{
+                                        foreach (var item in KategoriyaORM.Current.SelectActive().Data)
+                                        {
+                                            <li><a href="/Home/Kategoriya/@item.Id">@item.Adi</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="/Content/User/#" class="dropdown-toggle js-activated">Taglar</a>
+                                <ul class="dropdown-menu">
+                                    @{
+                                        foreach (var item in TagORM.Current.SelectActive().Data)
+                                        {
+                                            <li><a href="/Home/Tag/@item.Id">@item.Adi</a></li>
+                                        }
+                                    }
+
+                                </ul>
+                            </li>
+                            <li><a href="/Home/About">Haqqimizda</a></li>
+                            <li><a href="/Home/Contact">Elaqe</a></li>
+                            <li><a class="btn btn-danger" href="/User/UserLogout">Cixis Et</a></li>
+                            <li class="dropdown social-dropdown pull-right">
+                                <div class="share btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="icon-heart-1"></i></div>
+                                <ul class="button-group dropdown-menu dropdown-menu-right share-links">
+                                    <li><a href="#" class="btn"><i class="icon-s-facebook"></i></a></li>
+                                    <li><a href="#" class="btn"><i class="icon-s-twitter"></i></a></li>
+                                    <li><a href="#" class="btn"><i class="icon-s-instagram"></i></a></li>
+                                </ul>
+                            </li>
+                            <!--/social-dropdown -->
+                        </ul>
+                        <!--/.navbar-nav -->
+                    </nav>
+                    <!--/.nav-collapse -->
+                </div>
+                <!--/.container -->
+            </div>
+            <!--/.navbar-header -->
+        </div>
+        <!--/.navbar -->
+        <div class="offset"></div>
+        <div class="dark-wrapper intro crh">
+            <div class="container inner">
+                <h1> Xos gelmisen @User.Identity.Name </h1>
+                
+                @*<h1> Rahib Jafarovun meqaleleri </h1>
+                <p>Web developmente aid olan meqaleler ve en yeni texnologiyalara dair meqaleler.</p>*@
+            </div>
+            <!--/.container -->
+        </div>
+        <!--/.intro -->
+
+        
+        <!--/.container -->
+        @RenderBody()
+
+        
+        <!-- /.parallax -->
+
+    <div class="container inner crq">
+        
+
+        @RenderSection("meqale", false)
+
+
+        <aside class="col-sm-4 sidebar lp30">
+            @{
+                Html.RenderAction("LastPostPW", "Home");
+            }
+            
+            <!-- /.widget -->
+            <div class="sidebox widget">
+                <h3 class="widget-title section-title">Elsewhere</h3>
+                <p style="word-break:break-all;">Salam. Meni diger platformalarda da tapa bilersiniz.</p>
+                <ul class="social">
+                    <li><a><i class="icon-s-rss"></i></a></li>
+                    <li><a><i class="icon-s-twitter"></i></a></li>
+                    <li><a><i class="icon-s-facebook"></i></a></li>
+                    <li><a><i class="icon-s-pinterest"></i></a></li>
+                    <li><a><i class="icon-s-linkedin"></i></a></li>
+                    <li><a><i class="icon-s-dribbble"></i></a></li>
+                    <li><a><i class="icon-s-flickr"></i></a></li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+
+            <!-- /.widget -->
+            <div class="sidebox widget">
+                <h3 class="widget-title section-title">Custom Text</h3>
+                <p style="word-break:break-all;">Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Aenean lacinia bibendum nulla sed consectetur. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+            </div>
+            <!-- /.widget -->
+            @{
+                Html.RenderAction("KategoriyalarPW", "Home");
+            }
+            
+            <!-- /.widget -->
+            @{
+                Html.RenderAction("TagPW", "Home");
+            }
+            
+            <!-- /.widget -->
+        </aside>
+    </div>
+        <!--/.container -->
+
+        <div class="dark-wrapper cri">
+            <div class="container inner text-center">
+                <p class="lead">Siz bizimle islemek istiyerdiniz?</p>
+                <a href="/Home/Contact" class="btn"><i class="icon-paper-plane"></i>Bizimle Elaqe</a>
+            </div>
+        </div>
+        <!--/.dark-wrapper -->
+
+        <footer class="footer black-wrapper">
+            
+            <!-- .container -->
+
+         <div class="sub-footer">
+                <div class="container">
+                    <p class="pull-left">All rights reserved. Theme by Rahib Jafarov</p>
+                    <ul class="footer-menu pull-right">
+                        <li><a href="/Home/Index">Home</a></li>
+                        <li><a href="/Home/About">Haqqimizda</a></li>
+                        <li><a href="/Home/Contact">Elaqe</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+        <!-- /footer -->
+
+    </div>
+    <!--/.body-wrapper -->
+    <script src="/Content/User/style/js/jquery.min.js"></script>
+    <script src="/Content/User/style/js/bootstrap.min.js"></script>
+    <script src="/Content/User/style/js/plugins.js"></script>
+    <script src="/Content/User/style/js/scripts.js"></script>
+
+    @RenderSection("footer",false)
+</body>
+</html>

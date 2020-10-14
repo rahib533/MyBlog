@@ -1521,6 +1521,27 @@
     <Content Include="Content\jquery.fancybox.js" />
     <Content Include="Content\Login\paris.jpg" />
     <Content Include="Content\LogoSekil\3e5b9a13-d2db-4c09-9336-50aa10a84115.png" />
+    <Content Include="Content\MeqaleSekil\BoyukYol\03efc58d-2f62-43d5-b68a-72493f609e04.jpg" />
+    <Content Include="Content\MeqaleSekil\BoyukYol\48f904a6-d5b3-4ffe-8fc1-7156027fc476.jpg" />
+    <Content Include="Content\MeqaleSekil\BoyukYol\86ec6f58-bb6c-49cc-a78f-895c546ad811.jpg" />
+    <Content Include="Content\MeqaleSekil\BoyukYol\9aee0521-4ea9-40e6-a40a-3f5adfcbbe31.jpg" />
+    <Content Include="Content\MeqaleSekil\BoyukYol\a9307d1f-2702-4f2c-9f68-b29e5eb8d4b2.jpg" />
+    <Content Include="Content\MeqaleSekil\BoyukYol\c571243f-2fb1-4d69-b452-aecefee974b4.jpg" />
+    <Content Include="Content\MeqaleSekil\BoyukYol\e39574ab-5a9a-4df8-bc88-187fa766e252.jpg" />
+    <Content Include="Content\MeqaleSekil\KicikYol\770231ce-abde-4656-bcdb-51b31b5bc1c1.jpg" />
+    <Content Include="Content\MeqaleSekil\KicikYol\7eab31aa-8948-4100-9078-b9cde9577e74.jpg" />
+    <Content Include="Content\MeqaleSekil\KicikYol\906c7c77-99d4-40e2-aea4-8cb54dd39372.jpg" />
+    <Content Include="Content\MeqaleSekil\KicikYol\96716373-9524-4947-b744-3b0cc407e7f3.jpg" />
+    <Content Include="Content\MeqaleSekil\KicikYol\983c9731-145c-4872-8dd4-06a5be25dd50.jpg" />
+    <Content Include="Content\MeqaleSekil\KicikYol\aa07189e-6607-4777-9600-c93e1c559ef7.jpg" />
+    <Content Include="Content\MeqaleSekil\KicikYol\cbbe12a8-6c7d-477e-af73-05da4321575f.jpg" />
+    <Content Include="Content\MeqaleSekil\OrtaYol\190b5291-03ed-4682-b4dc-66ffda25e019.jpg" />
+    <Content Include="Content\MeqaleSekil\OrtaYol\1f61e1eb-6086-4766-bce6-4d997d188c72.jpg" />
+    <Content Include="Content\MeqaleSekil\OrtaYol\43004e29-5031-4f86-8b14-23f1e216e569.jpg" />
+    <Content Include="Content\MeqaleSekil\OrtaYol\452f3c38-3508-4ca4-aace-e6bf5714492d.jpg" />
+    <Content Include="Content\MeqaleSekil\OrtaYol\4fff9312-0352-4ea0-91b4-694da9572bff.jpg" />
+    <Content Include="Content\MeqaleSekil\OrtaYol\b0cf4c81-f515-424c-ad7a-aa7bb280f96c.jpg" />
+    <Content Include="Content\MeqaleSekil\OrtaYol\d0649eb2-787b-46d5-b069-fa01d87c46ab.jpg" />
     <Content Include="Content\User\about.html" />
     <Content Include="Content\User\blog-post.html" />
     <Content Include="Content\User\blog.html" />
@@ -1979,9 +2000,6 @@
     <Folder Include="Content\KatiqoriyaSekil\BoyukYol\" />
     <Folder Include="Content\KatiqoriyaSekil\KicikYol\" />
     <Folder Include="Content\KatiqoriyaSekil\OrtaYol\" />
-    <Folder Include="Content\MeqaleSekil\BoyukYol\" />
-    <Folder Include="Content\MeqaleSekil\KicikYol\" />
-    <Folder Include="Content\MeqaleSekil\OrtaYol\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

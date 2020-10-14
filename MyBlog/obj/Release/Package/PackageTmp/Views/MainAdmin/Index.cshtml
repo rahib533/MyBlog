@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+@using System.Web.Security
+@model  MembershipUserCollection
+
+
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Index">Ana Səhifə</a>
+        </li>
+        <li class="breadcrumb-item active">Cədvəl</li>
+    </ol>
+    <br />
+    <a class="btn btn-success btn-block" href="/MainAdmin/Rollar">Rollar</a>
+    <br />
+    <a class="btn btn-primary btn-block" href="/User/Qeydiyyat">Istifadeci Əlavə Et</a>
+    <br />
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Data Table Example
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Adı</th>
+                            <th>Email</th>
+                            <th>Yaradilma tarixi</th>
+                            <th>Son gorulme tarixi</th>
+                            <th>Gizli Sual</th>
+                            <th>Rollari</th>
+                            <th>Rol Ver</th>
+                            <th>SIL</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Adı</th>
+                            <th>Email</th>
+                            <th>Yaradilma tarixi</th>
+                            <th>Son gorulme tarixi</th>
+                            <th>Gizli Sual</th>
+                            <th>Rollari</th>
+                            <th>Rol Ver</th>
+                            <th>SIL</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        @{
+                            foreach (MembershipUser item in Model)
+                            {
+                                <tr>
+                                    <td>@item.UserName</td>
+                                    <td>@item.Email</td>
+                                    <td>@item.CreationDate</td>
+                                    <td>@item.LastActivityDate</td>
+                                    <td>@item.PasswordQuestion</td>
+                                    @{
+                                        string[] rollar = Roles.GetRolesForUser(item.UserName);
+                                        if (rollar.Length == 0)
+                                        {
+                                            <td>rol yoxdur</td>
+                                        }
+                                        else
+                                        {
+                                            string rr = "";
+                                            foreach (string rol in rollar)
+                                            {
+                                                rr += rol + "  ";
+                                            }
+                                            <td> @rr </td>
+                                        }
+
+                                    }
+
+                                    <td><a class="btn btn-primary btn-success" href="/MainAdmin/UserRol/@item.UserName">Rol Ver</a></td>
+                                    <td><a class="btn btn-primary btn-danger userSil" href="#" data-user="@item.UserName">Sil</a></td>
+                                </tr>
+                            }
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>
+
+    <p class="small text-center text-muted my-5">
+        <em>More table examples coming soon...</em>
+    </p>
+
+</div>
+
+@section footer{
+
+    <script src="~/Content/Admin/js/sb-admin.min.js"></script>
+
+    <script>
+
+        $(document).ready(function(){
+            $(".userSil").click(function(){
+                var deyer = $(this).data("user");
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "/MainAdmin/UserSil/"+ deyer,
+
+                    success: function my(gelen) {
+                        alert("User Silindi f5 e click edin ve yenilikleri gorun");
+                        $("body").empty();
+                        $("body").html(gelen);
+                    },
+                    error: function my() {
+                        alert("xeta oldu");
+                    }
+
+                });
+            });
+        });
+
+    </script>
+
+
+}
+
+
+

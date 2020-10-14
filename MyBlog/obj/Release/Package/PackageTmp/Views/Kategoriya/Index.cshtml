@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+
+@model IEnumerable<CustomProject.Entity.Kategoriya>
+
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Index">Ana Səhifə</a>
+        </li>
+        <li class="breadcrumb-item active">Cədvəl</li>
+    </ol>
+    <br />
+    <a class="btn btn-info" href="/Kategoriya/Index">Sehifeni Yenile</a>
+    <br /><br />
+    <br />
+    <a class="btn btn-primary btn-block" href="/Kategoriya/Add">Kategoriya Əlavə Et</a>
+    <br />
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Data Table Example
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Adı</th>
+                            <th>Aciqlama</th>
+                            <th>Cari Veziyyeti</th>
+                            <th>Sekili</th>
+                            <th>SIL</th>
+                            <th>GÜNCƏLLƏ</th>
+                            <th>Shekil Elave Et</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Adı</th>
+                            <th>Aciqlama</th>
+                            <th>Cari Veziyyeti</th>
+                            <th>Sekili</th>
+                            <th>SIL</th>
+                            <th>GÜNCƏLLƏ</th>
+                            <th>Shekil Elave Et</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Adi</td>
+                                <td>@item.Aciqlama</td>
+                                @if (item.IsActive == true)
+                                {
+                                    <td class="bg-success">Active</td>
+                                }
+                                else
+                                {
+                                    <td class="btn-danger">Deactive</td>
+                                }
+
+
+                                @{ 
+                                      List<CustomProject.Entity.PhotosForKategoriya> k = CustomProject.ORM.PhotoForKategoriyaORM.Current.SelectForeignById(item.Id).Data;
+                                }
+
+
+                                @if (k.Count==0)
+                                {
+                                    <td>yoxdur</td>
+                                }
+                                else
+                                {
+                                    <td><a href="/Kategoriya/Sekil/@item.Id">Kategoriya Sekili</a></td>
+                                }
+
+                                <td><a class="btn btn-primary btn-danger katSil" href="#" data-kat="@item.Id">Sil</a></td>
+                                <td><a class="btn btn-primary btn-default" href="/Kategoriya/Update/@item.Id">Güncəllə</a></td>
+                                <td>
+                                    <a class="btn btn-success" href="/Kategoriya/PhotoAdd/@item.Id">Shekil elave et</a>
+                                </td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>
+
+    <p class="small text-center text-muted my-5">
+        <em>More table examples coming soon...</em>
+    </p>
+</div>
+
+@section footer{
+
+    <script src="~/Content/Admin/js/sb-admin.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $(".katSil").click(function () {
+                var deyer = $(this).data("kat");
+
+                $.ajax({
+
+                    type: "GET",
+                    url: "/Kategoriya/Sil/" + deyer,
+
+                    success: function my(gelen) {
+                        alert("Kategoriya Silindi");
+                        $("body").empty();
+                        $("body").html(gelen);
+                    },
+                    error: function my() {
+                        alert("xeta oldu");
+                    }
+
+                });
+            });
+        });
+
+    </script>
+
+
+}

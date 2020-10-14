@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+
+@model IEnumerable<CustomProject.Entity.Meqale>
+
+<div class="container-fluid">
+
+    <!-- Breadcrumbs-->
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/Admin/Index">Ana Səhifə</a>
+        </li>
+        <li class="breadcrumb-item active">Cədvəl</li>
+    </ol>
+    <br />
+    <a class="btn btn-info" href="/Beyenme/Index">Sehifeni Yenile</a>
+    <br /><br />
+    <br />
+    @*<a class="btn btn-primary btn-block" href="/Tag/Add">Tag Əlavə Et</a>*@
+    <br />
+    <!-- DataTables Example -->
+    <div class="card mb-3">
+        <div class="card-header">
+            <i class="fas fa-table"></i>
+            Data Table Example
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Adı</th>
+                            <th>Cari Veziyyeti</th>
+                            <th>Beyenme</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Adı</th>
+                            <th>Cari Veziyyeti</th>
+                            <th>Beyenme</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Basliq</td>
+                                <td class="bg-success">Active</td>
+                                <td><a href="/Beyenme/Gor/@item.Id">Beyenmeler</a></td>
+                            </tr>
+
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+    </div>
+
+    <p class="small text-center text-muted my-5">
+        <em>More table examples coming soon...</em>
+    </p>
+</div>
+
+
+

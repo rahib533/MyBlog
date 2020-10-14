@@ -1,0 +1,14 @@
+﻿
+@{
+    ViewBag.Title = "Gor";
+    Layout = "~/Views/Shared/Admin_Layout.cshtml";
+}
+
+@model IEnumerable<CustomProject.Entity.LikeForMeqale>
+
+@{ 
+    foreach (var item in Model)
+    {
+        <p><b>@CustomProject.ORM.UserORM.Current.GetUserById(item.UserID)</b></p>
+    }
+}

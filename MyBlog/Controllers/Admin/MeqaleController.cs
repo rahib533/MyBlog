@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
 
@@ -132,16 +133,44 @@ namespace MyBlog.Controllers.Admin
             p.KategoriyaID = null;
             int b = (int)p.MeqaleID;
             
-            string mainPath = @"C:/Users/hp2015/source/repos/MyBlog/MyBlog" + p.BoyukYol;
-            string mainPath2 = @"C:/Users/hp2015/source/repos/MyBlog/MyBlog" + p.OrtaYol;
-            string mainPath3 = @"C:/Users/hp2015/source/repos/MyBlog/MyBlog" + p.KicikYol;
+            string mainPath = /*@"C:/Users/hp2015/source/repos/MyBlog/MyBlog" + */p.BoyukYol;
+            string mainPath2 = /*@"C:/Users/hp2015/source/repos/MyBlog/MyBlog" +*/ p.OrtaYol;
+            string mainPath3 =/* @"C:/Users/hp2015/source/repos/MyBlog/MyBlog" +*/ p.KicikYol;
 
+            string path = Server.MapPath(mainPath);
+            string path2 = Server.MapPath(mainPath2);
+            string path3 = Server.MapPath(mainPath3);
 
-            System.IO.File.Delete(mainPath);
-            System.IO.File.Delete(mainPath2);
-            System.IO.File.Delete(mainPath3);
+            FileInfo fi = new FileInfo(path);
+            FileInfo fi2 = new FileInfo(path2);
+            FileInfo fi3 = new FileInfo(path3);
 
-            bool a = PhotoForMeqaleORM.Current.Update(p).Data;
+            fi.Delete();
+            fi2.Delete();
+            fi3.Delete();
+
+            //string[] Files = Directory.GetFiles(mainPath);
+            //string[] Files2 = Directory.GetFiles(mainPath2);
+            //string[] Files3 = Directory.GetFiles(mainPath3);
+
+            //foreach (string item in Files)
+            //{
+            //    System.IO.File.Delete(item);
+            //}
+            //foreach (string item in Files2)
+            //{
+            //    System.IO.File.Delete(item);
+            //}
+            //foreach (string item in Files3)
+            //{
+            //    System.IO.File.Delete(item);
+            //}
+
+            //System.IO.File.Delete(mainPath);
+            //System.IO.File.Delete(mainPath2);
+            //System.IO.File.Delete(mainPath3);
+
+            bool a = PhotoForMeqaleORM.Current.Delete(p).Data;
 
             if (a==false)
             {

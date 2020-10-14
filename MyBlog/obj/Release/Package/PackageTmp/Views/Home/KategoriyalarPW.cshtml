@@ -1,0 +1,19 @@
+﻿
+@using CustomProject.Entity
+@using CustomProject.ORM
+
+@model IEnumerable<Kategoriya>
+
+
+    <div class="sidebox widget">
+        <h3 class="widget-title section-title">Katiqoriyalarimiz</h3>
+        <ul class="circled">
+            @{
+                foreach (var item in Model)
+                {
+                    int str = MeqaleORM.Current.SelectForeignById(item.Id).Data.Count;
+                    <li><a href="/Home/Kategoriya/@item.Id">@item.Adi (@str) </a></li>
+                }
+            }
+        </ul>
+    </div>

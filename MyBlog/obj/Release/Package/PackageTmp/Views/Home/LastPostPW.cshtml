@@ -1,0 +1,37 @@
+﻿
+@model IEnumerable<CustomProject.Entity.Meqale>
+
+
+    <div class="sidebox widget">
+        <h3 class="widget-title section-title">Son 10 meqalemiz</h3>
+        <ul class="post-list">
+            @{
+                foreach (var item in Model)
+                {
+                    <li>
+                        <div class="icon-overlay"> 
+                                        <a href="/Home/Meqale/@item.Id">
+                                            @{
+                                                if (CustomProject.ORM.PhotoForMeqaleORM.Current.SelectForeignById(item.Id).Data.Count != 0)
+                                                {
+                                                    <img src="@CustomProject.ORM.PhotoForMeqaleORM.Current.SelectForeignById(item.Id).Data[0].KicikYol" alt="" />
+                                                }
+                                                else
+                                                {
+                                                    <img src="#" alt="" />
+                                                }
+                                            }
+
+                                        </a> 
+                        </div>
+                        <div class="meta">
+                            <h5 style="word-break:break-all;"><a href="/Home/Meqale/@item.Id">@item.Basliq</a></h5>
+                            <em>@item.Tarixi <span class="comments"><a>@CustomProject.ORM.ReyORM.Current.SelectForeignById(item.Id).Data.Count <i class="icon-chat-1"></i></a></span></em>
+                        </div>
+                    </li>
+                }
+            }
+
+        </ul>
+        <!-- /.post-list -->
+    </div>
